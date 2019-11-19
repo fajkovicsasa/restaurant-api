@@ -6,13 +6,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "USERS")
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "USERS")
 @ToString
 public class User {
     @Id
