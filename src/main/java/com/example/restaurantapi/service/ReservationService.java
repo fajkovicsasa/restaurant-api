@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +64,10 @@ public class ReservationService {
     }
 
     public List<Reservation> findByTableAndDate(Long tableId, LocalDate date) {
-        return reservationRepository.findAllByTableIdAndDateEquals(tableId, date);
+        LocalDateTime dateTimeFrom = date.atTime(0,0,0);
+        LocalDateTime dateTimeUntil = date.atTime(23,59,59);
+        return reservationRepository.findAllByTableIdAndDateTime_DateEquals(tableId, dateTimeFrom, dateTimeUntil);
+
+
     }
 }

@@ -12,6 +12,7 @@ import com.example.restaurantapi.service.FoodCategoryService;
 import com.example.restaurantapi.service.ReservationService;
 import com.example.restaurantapi.service.TableService;
 import lombok.NonNull;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -32,7 +33,7 @@ public class ReservationValidationUtil {
     private final TableService tableService;
     private final ReservationService reservationService;
 
-    public ReservationValidationUtil(ApplicationSettingsService applicationSettingsService, FoodCategoryService foodCategoryService, TableService tableService, ReservationService reservationService) {
+    public ReservationValidationUtil(ApplicationSettingsService applicationSettingsService, FoodCategoryService foodCategoryService, TableService tableService, @Lazy ReservationService reservationService) {
         this.applicationSettingsService = applicationSettingsService;
         this.foodCategoryService = foodCategoryService;
         this.tableService = tableService;
