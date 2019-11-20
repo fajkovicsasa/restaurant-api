@@ -1,10 +1,8 @@
 package com.example.restaurantapi.service;
 
 import com.example.restaurantapi.domain.ApplicationSetting;
-import com.example.restaurantapi.dto.ApplicationSettingDTO;
 import com.example.restaurantapi.exception.ApplicationSettingAlreadyExistsException;
-import com.example.restaurantapi.exception.ApplicationSettingNotFoundException;
-import com.example.restaurantapi.mapper.ApplicationSettingsMapper;
+import com.example.restaurantapi.exception.ResourceNotFoundException;
 import com.example.restaurantapi.repository.ApplicationSettingsRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,34 +22,43 @@ public class ApplicationSettingsService {
         return applicationSettingsRepository.findAll();
     }
 
-    //todo remove optional, throw exception
-    public Optional<ApplicationSetting> getSpecificSettingById(Long id) {
+    public ApplicationSetting getSpecificSettingById(Long id) {
 
-        return applicationSettingsRepository.findById(id);
+        Optional<ApplicationSetting> optional = applicationSettingsRepository.findById(id);
+        if (optional.isEmpty()) {
+            throw new ResourceNotFoundException(id, ApplicationSetting.class);
+        }
+
+        return optional.get();
     }
 
-    public Optional<ApplicationSetting> getSpecificSettingByName(String name) {
+    public ApplicationSetting getSpecificSettingByName(String name) {
         Optional<ApplicationSetting> optional = applicationSettingsRepository.findByName(name);
         if (optional.isEmpty()) {
-            throw new ApplicationSettingNotFoundException(name);
+            throw new ResourceNotFoundException(name, ApplicationSetting.class);
         }
-        return optional;
+        return optional.get();
     }
 
-    public void addNewSetting(ApplicationSettingDTO dto) {
-        Optional<ApplicationSetting> optional = applicationSettingsRepository.findByName(dto.getName());
+    public void addNewSetting(ApplicationSetting applicationSetting) {
+        Optional<ApplicationSetting> optional = applicationSettingsRepository.findByName(applicationSetting.getName());
         if (optional.isPresent()) {
-            throw new ApplicationSettingAlreadyExistsException(dto.getName());
+            throw new ApplicationSettingAlreadyExistsException(applicationSetting.getName());
         }
-        applicationSettingsRepository.save(ApplicationSettingsMapper.toEntity(dto));
+        applicationSettingsRepository.save(applicationSetting);
     }
 
     public void updateSetting(ApplicationSetting setting) {
-        if (getSpecificSettingById(setting.getId()).isEmpty()) {
-            throw new ApplicationSettingNotFoundException(setting.getId());
+        Optional<ApplicationSetting> optional = applicationSettingsRepository.findById(setting.getId());
+        if (optional.isEmpty()) {
+            throw new ResourceNotFoundException(setting.getId(), ApplicationSetting.class);
         }
+
+
         applicationSettingsRepository.save(setting);
     }
 
-
+    public void deleteSetting(Long id) {
+        applicationSettingsRepository.deleteById(id);
+    }
 }

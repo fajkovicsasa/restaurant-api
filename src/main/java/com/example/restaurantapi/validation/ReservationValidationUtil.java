@@ -7,7 +7,6 @@ import com.example.restaurantapi.service.ApplicationSettingsService;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -24,12 +23,9 @@ public class ReservationValidationUtil {
 
         LocalDateTime now = LocalDateTime.now();
 
-        Optional<ApplicationSetting> optional = applicationSettingsService.getSpecificSettingByName(ApplicationSettingsConstants.RESERVATION_DAYS);
-        if (optional.isEmpty()) {
-            throw new IllegalStateException("No reservation days limit found in the database! Can't validate ");
-        }
+        ApplicationSetting applicationSetting = applicationSettingsService.getSpecificSettingByName(ApplicationSettingsConstants.RESERVATION_DAYS);
 
-        int maxDaysForFutureReservations = Integer.parseInt(optional.get().getValue());
+        int maxDaysForFutureReservations = Integer.parseInt(applicationSetting.getValue());
 
         if (DAYS.between(now, reservation.getDateTime()) > maxDaysForFutureReservations) {
             throw new IllegalArgumentException(String.format("Reservation with date %s exceeds the amount of days that are allowed to make a reservation in the future. Max allowed days is %s", reservation.getDateTime(), maxDaysForFutureReservations));

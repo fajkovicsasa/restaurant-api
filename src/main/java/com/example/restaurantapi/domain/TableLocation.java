@@ -19,5 +19,6 @@ public class TableLocation {
     private Long id;
     private String name;
     private Long parentId;
+    private Boolean isActive;
 
 }

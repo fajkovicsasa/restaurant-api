@@ -5,23 +5,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.sql.Time;
 import java.util.Set;
 
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationDTO {
+public class FoodCategoryDTO {
 
     private Long id;
-    @NotNull @Min(1)
-    private Integer peopleCount;
     @NotNull
-    private LocalDateTime dateTime;
+    private String name;
     @NotNull
-    private Long tableId;
-    private Set<Long> foodCategories;
+    private Time servingTimeFrom;
+    private Time servingTimeUntil;
+    @NotNull
+    private Boolean isActive;
+    private Set<Long> reservations;
 }

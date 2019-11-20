@@ -2,8 +2,8 @@ package com.example.restaurantapi.domain;
 
 import lombok.*;
 
-import javax.persistence.*;
 import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity

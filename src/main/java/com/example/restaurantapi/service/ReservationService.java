@@ -1,15 +1,18 @@
 package com.example.restaurantapi.service;
 
+import com.example.restaurantapi.domain.FoodCategory;
 import com.example.restaurantapi.domain.Reservation;
-import com.example.restaurantapi.exception.ReservationNotFoundException;
+import com.example.restaurantapi.exception.ResourceNotFoundException;
 import com.example.restaurantapi.repository.ReservationRepository;
 import com.example.restaurantapi.validation.ReservationValidationUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
@@ -27,7 +30,7 @@ public class ReservationService {
     public Reservation getReservation(Long id) {
         Optional<Reservation> optional = reservationRepository.findById(id);
         if (optional.isEmpty()) {
-            throw new ReservationNotFoundException(id);
+            throw new ResourceNotFoundException(id, Reservation.class);
         }
         return optional.get();
     }
@@ -48,7 +51,7 @@ public class ReservationService {
 
         Optional<Reservation> optional = reservationRepository.findById(reservation.getId());
         if (optional.isEmpty()) {
-            throw new ReservationNotFoundException(reservation.getId());
+            throw new ResourceNotFoundException(reservation.getId(), Reservation.class);
         }
         reservationValidationUtil.validateEntity(reservation);
 

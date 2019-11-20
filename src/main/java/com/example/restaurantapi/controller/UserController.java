@@ -43,6 +43,6 @@ public class UserController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> getUserDetails(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.getUserDTO(id), HttpStatus.OK);
+        return new ResponseEntity<>(UserMapper.toUserDTO(userService.getUser(id)), HttpStatus.OK);
     }
 }

@@ -5,16 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
-
-@Getter
-@Setter
-@AllArgsConstructor
+@Getter @Setter
 @NoArgsConstructor
-public class ApplicationSettingDTO {
+@AllArgsConstructor
+public class TableLocationDTO {
+
     private Long id;
-    @NotNull
     private String name;
-    @NotNull
-    private String value;
+    private Long parentId;
+    private Boolean isActive;
 }

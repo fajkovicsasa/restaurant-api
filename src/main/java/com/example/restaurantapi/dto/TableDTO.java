@@ -7,21 +7,17 @@ import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class ReservationDTO {
-
+@NoArgsConstructor
+public class TableDTO {
     private Long id;
-    @NotNull @Min(1)
-    private Integer peopleCount;
+    @Min(0)
+    private Integer capacity;
     @NotNull
-    private LocalDateTime dateTime;
+    private Long locationId;
     @NotNull
-    private Long tableId;
-    private Set<Long> foodCategories;
+    private Boolean isActive;
 }

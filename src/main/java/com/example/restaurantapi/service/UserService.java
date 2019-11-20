@@ -1,9 +1,7 @@
 package com.example.restaurantapi.service;
 
 import com.example.restaurantapi.domain.User;
-import com.example.restaurantapi.dto.UserDTO;
-import com.example.restaurantapi.exception.UserNotFoundException;
-import com.example.restaurantapi.mapper.UserMapper;
+import com.example.restaurantapi.exception.ResourceNotFoundException;
 import com.example.restaurantapi.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,28 +18,19 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getUser(Long id) throws UserNotFoundException {
+    public User getUser(Long id) {
         log.info("Retrieving user with id {}", id);
         Optional<User> optionalUser = userRepository.findById(id);
 
-        if (!optionalUser.isPresent()) {
-            throw new UserNotFoundException(id);
+        if (optionalUser.isEmpty()) {
+            throw new ResourceNotFoundException(id, User.class);
         }
+
         return optionalUser.get();
     }
 
     public void addNewUser(User user) {
         log.info("Adding new user {}", user);
         userRepository.save(user);
-    }
-
-    public UserDTO getUserDTO(Long userId) {
-        log.info("Retrieving userDto for id {}", userId);
-        Optional<User> optionalUser = userRepository.findById(userId);
-        if (!optionalUser.isPresent()) {
-            throw new UserNotFoundException(userId);
-        }
-
-        return UserMapper.toUserDTO(optionalUser.get());
     }
 }
