@@ -7,6 +7,7 @@ import javax.persistence.Table;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,8 +26,8 @@ public class FoodCategory {
     @NotNull
     private String name;
     @NotNull
-    private Time servingTimeFrom;
-    private Time servingTimeUntil;
+    private LocalTime servingTimeFrom;
+    private LocalTime servingTimeUntil;
     @NotNull
     private Boolean isActive;
 

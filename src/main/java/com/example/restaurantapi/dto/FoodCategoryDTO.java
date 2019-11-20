@@ -6,10 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Set;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class FoodCategoryDTO {
@@ -18,8 +19,8 @@ public class FoodCategoryDTO {
     @NotNull
     private String name;
     @NotNull
-    private Time servingTimeFrom;
-    private Time servingTimeUntil;
+    private LocalTime servingTimeFrom;
+    private LocalTime servingTimeUntil;
     @NotNull
     private Boolean isActive;
     private Set<Long> reservations;

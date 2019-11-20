@@ -29,3 +29,9 @@ of the request. Example:
 # Test data
 Dummy data is provided in the data.sql located under "main/java/resources/data.sql". After you start the API for the first time
 make sure to comment-out all the lines starting with "INSERT" in that file.
+
+### REST API endpoints ###
+All of the available endpoints for the APi can be seen inside the "controller" package.
+
+### Pre-requisite ###
+To run the API, Java 11 or higher is mandatory, and Maven 3.6.0 or higher.

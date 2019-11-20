@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+
 public interface FoodCategoryRepository extends JpaRepository<FoodCategory, Long> {
 
     @Transactional
@@ -18,4 +20,6 @@ public interface FoodCategoryRepository extends JpaRepository<FoodCategory, Long
     @Modifying
     @Query("UPDATE FoodCategory  set isActive = false where id = :id")
     void deactivate(Long id);
+
+    Set<FoodCategory> findAllByIdIn(Set<Long> ids);
 }

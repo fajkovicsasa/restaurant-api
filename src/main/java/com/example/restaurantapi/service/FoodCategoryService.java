@@ -5,8 +5,11 @@ import com.example.restaurantapi.exception.ResourceNotFoundException;
 import com.example.restaurantapi.repository.FoodCategoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class FoodCategoryService {
@@ -27,6 +30,10 @@ public class FoodCategoryService {
             throw new ResourceNotFoundException(id, FoodCategory.class);
         }
         return optional.get();
+    }
+
+    public Set<FoodCategory> getFoodCategoriesByIds(Set<Long> ids) {
+        return foodCategoryRepository.findAllByIdIn(ids);
     }
 
     public void addNewCategory(FoodCategory foodCategory) {
