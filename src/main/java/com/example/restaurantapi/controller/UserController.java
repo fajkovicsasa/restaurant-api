@@ -1,7 +1,7 @@
 package com.example.restaurantapi.controller;
 
 import com.example.restaurantapi.domain.UserRegistrationDTO;
-import com.example.restaurantapi.dto.UserDTO;
+import com.example.restaurantapi.exception.ResourceNotFoundException;
 import com.example.restaurantapi.mapper.UserMapper;
 import com.example.restaurantapi.service.UserService;
 import org.slf4j.Logger;
@@ -42,7 +42,11 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> getUserDetails(@PathVariable Long id) {
-        return new ResponseEntity<>(UserMapper.toUserDTO(userService.getUser(id)), HttpStatus.OK);
+    public ResponseEntity getUserDetails(@PathVariable Long id) {
+        try {
+            return new ResponseEntity(UserMapper.toUserDTO(userService.getUser(id)), HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 }

@@ -21,8 +21,8 @@ public class ReservationsController {
     }
 
     @GetMapping
-    public ResponseEntity getAllReservations() {
-        return new ResponseEntity(reservationService.getAllReservations(), HttpStatus.OK);
+    public ResponseEntity getAllReservations(@RequestParam Integer page, @RequestParam Integer size) {
+        return new ResponseEntity(reservationService.getAllReservations(page, size), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

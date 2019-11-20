@@ -4,6 +4,10 @@ import com.example.restaurantapi.domain.Reservation;
 import com.example.restaurantapi.exception.ResourceNotFoundException;
 import com.example.restaurantapi.repository.ReservationRepository;
 import com.example.restaurantapi.validation.ReservationValidationUtil;
+import lombok.NonNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +28,8 @@ public class ReservationService {
         this.reservationValidationUtil = reservationValidationUtil;
     }
 
-    public List<Reservation> getAllReservations() {
-        return reservationRepository.findAll();
+    public List<Reservation> getAllReservations(@NonNull Integer page, @NonNull Integer size) {
+         return reservationRepository.findAll(PageRequest.of(page, size, Sort.by("id").descending())).getContent();
     }
 
     public Reservation getReservation(Long id) {
@@ -64,8 +68,8 @@ public class ReservationService {
     }
 
     public List<Reservation> findByTableAndDate(Long tableId, LocalDate date) {
-        LocalDateTime dateTimeFrom = date.atTime(0,0,0);
-        LocalDateTime dateTimeUntil = date.atTime(23,59,59);
+        LocalDateTime dateTimeFrom = date.atTime(0, 0, 0);
+        LocalDateTime dateTimeUntil = date.atTime(23, 59, 59);
         return reservationRepository.findAllByTableIdAndDateTime_DateEquals(tableId, dateTimeFrom, dateTimeUntil);
 
 

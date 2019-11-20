@@ -4,7 +4,6 @@ import com.example.restaurantapi.dto.TableLocationDTO;
 import com.example.restaurantapi.exception.ResourceNotFoundException;
 import com.example.restaurantapi.mapper.TableLocationMapper;
 import com.example.restaurantapi.service.TableLocationService;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
