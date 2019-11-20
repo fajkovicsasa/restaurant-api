@@ -1,6 +1,8 @@
 package com.example.restaurantapi.controller;
 
 import com.example.restaurantapi.dto.ReservationDTO;
+import com.example.restaurantapi.exception.InvalidServingTimeException;
+import com.example.restaurantapi.exception.NotEnoughSeatAtTheTableException;
 import com.example.restaurantapi.exception.ResourceNotFoundException;
 import com.example.restaurantapi.mapper.ReservationsMapper;
 import com.example.restaurantapi.service.ReservationService;
@@ -37,7 +39,7 @@ public class ReservationsController {
         try {
             reservationService.addNewReservation(ReservationsMapper.toEntity(dto));
             return new ResponseEntity(HttpStatus.CREATED);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NotEnoughSeatAtTheTableException | InvalidServingTimeException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
@@ -48,9 +50,9 @@ public class ReservationsController {
             reservationService.updateReservation(ReservationsMapper.toEntity(dto));
             return new ResponseEntity(HttpStatus.OK);
         } catch (ResourceNotFoundException e) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (IllegalArgumentException | NotEnoughSeatAtTheTableException | InvalidServingTimeException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
