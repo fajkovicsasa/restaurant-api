@@ -3,4 +3,4 @@ jdk: openjdk11
 
 install: true
 
-script: mvn clean package -DskipTests=tru
+script: mvn clean package -DskipTests=true
