@@ -1,6 +1,7 @@
 # restaurant-api
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-no-red.svg)](https://bitbucket.org/lbesson/ansi-colors)
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/fajkovicsasa/restaurant-api.svg?branch=master)](https://travis-ci.org/fajkovicsasa/restaurant-api)
 
 API for managing restaurant reservations and orders. Each table has it's specific location and a capacity for how many people
 can sit on that table. <b>Double-reservations are allowed</b> meaning if the table has a capacity of 10 people and the first
