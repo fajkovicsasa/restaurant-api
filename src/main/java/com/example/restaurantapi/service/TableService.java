@@ -5,7 +5,6 @@ import com.example.restaurantapi.dto.TableDTO;
 import com.example.restaurantapi.exception.ResourceNotFoundException;
 import com.example.restaurantapi.mapper.TableMapper;
 import com.example.restaurantapi.repository.TableRepository;
-import javafx.scene.control.Tab;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
